@@ -10,12 +10,12 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # ✅ Load OpenAI API key
-        load_dotenv('../openAI.env')
+        load_dotenv('openAI.env')
         client = OpenAI(api_key=os.environ.get('openai_apikey'))
 
         # ✅ Change these titles for any movies you want to compare
-        movie1 = Movie.objects.get(title="La lista de Schindler")
-        movie2 = Movie.objects.get(title="El club de la pelea")
+        movie1 = Movie.objects.get(title="The Great Train Robbery")
+        movie2 = Movie.objects.get(title="New York Subway")
 
         def get_embedding(text):
             response = client.embeddings.create(
@@ -36,7 +36,7 @@ class Command(BaseCommand):
         self.stdout.write(f"\U0001F3AC Similaridad entre '{movie1.title}' y '{movie2.title}': {similarity:.4f}")
 
         # ✅ Optional: Compare against a prompt
-        prompt = "película sobre la Segunda Guerra Mundial"
+        prompt = "película sobre trenes"
         prompt_emb = get_embedding(prompt)
 
         sim_prompt_movie1 = cosine_similarity(prompt_emb, emb1)

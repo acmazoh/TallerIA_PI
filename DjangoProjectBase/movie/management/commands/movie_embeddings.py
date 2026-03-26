@@ -10,7 +10,7 @@ class Command(BaseCommand):
 
     def handle(self, *args, **kwargs):
         # ✅ Load OpenAI API key
-        load_dotenv('../openAI.env')
+        load_dotenv('openAI.env')
         client = OpenAI(api_key=os.environ.get('openai_apikey'))
 
         # ✅ Fetch all movies from the database
